@@ -1,0 +1,19 @@
+<div ng-controller="TrafficLightVisController" class="traffic-light-vis">
+	<div class="traffic-light-vis" ng-repeat="line in lines">
+	    <div ng-repeat="metric in line" class="traffic-light-box" ng-style="{'width':percentperlight+'%'}">
+	        <div class="traffic-light-container" ng-style="{'width': vis.params.width+'px', 'height': (2.68 * vis.params.width)+'px' }">
+	            <div class="traffic-light">
+	                <div class="light red" ng-class="{'on':
+						(!vis.params.invertScale && ((metric.value <= vis.params.redThreshold) || (metric.value >= vis.params.max)))
+						|| (vis.params.invertScale && metric.value >= vis.params.redThreshold) }">
+					</div>
+	                <div class="light yellow" ng-class="{'on': (!vis.params.invertScale && metric.value > vis.params.redThreshold && metric.value < vis.params.greenThreshold) || (vis.params.invertScale && metric.value < vis.params.redThreshold && metric.value > vis.params.greenThreshold) }"></div>
+	                <div class="light green" ng-class="{'on':
+					(!vis.params.invertScale && metric.value >= vis.params.greenThreshold && metric.value < vis.params.max)
+					|| (vis.params.invertScale && metric.value <= vis.params.greenThreshold) }"></div>
+	            </div>
+	        </div>
+	        <div class="traffic-light-legend">{{metric.label}}<br/>({{metric.value | number:1}})</div>
+	    </div>
+	</div>
+</div>
