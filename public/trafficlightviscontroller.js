@@ -47,8 +47,7 @@ module.controller('TrafficLightVisController', function ($scope, Private) {
                 }
                 i++;
             }
-
-            console.log(JSON.stringify(lines));
+            
             $scope.lines = lines;
         }
     });
