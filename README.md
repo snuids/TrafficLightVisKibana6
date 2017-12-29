@@ -3,7 +3,7 @@ A traffic lights visualisation panel that can be split on multiple lines
 
 # Traffic Light Visualization
 
-![Transform Vis](https://raw.githubusercontent.com/snuids/TrafficLightVisKibana6/master/pictures/TrafficLight6a.jpg)
+![Transform Vis](https://raw.githubusercontent.com/snuids/TrafficLightVisKibana6/master/pictures/TrafficLights6a.jpg)
 
 ## Versions
 Kibana 6.X version of http://logz.io/blog/kibana-visualizations/
