@@ -7,11 +7,11 @@ import './trafficlightviscontroller.js';
 import {CATEGORY} from 'ui/vis/vis_category';
 import {VisFactoryProvider} from 'ui/vis/vis_factory';
 import {VisTypesRegistryProvider} from 'ui/registry/vis_types';
-import {VisSchemasProvider} from 'ui/vis/editors/default/schemas';
+import {Schemas} from 'ui/vis/editors/default/schemas';
 
 function TestVisProvider(Private) {
   const VisFactory = Private(VisFactoryProvider);
-  const Schemas = Private(VisSchemasProvider);
+  //const Schemas = Private(VisSchemasProvider);
 
   return VisFactory.createAngularVisualization({
     name: 'trafficlights',
