@@ -13,7 +13,7 @@
 					|| (vis.params.invertScale && metric.value <= vis.params.greenThreshold) }"></div>
 	            </div>
 	        </div>
-	        <div class="traffic-light-legend">{{metric.label}}<br/>({{metric.value | number:1}})</div>
+	        <div class="traffic-light-legend">{{metric.label}}<br/>{{metric.value | number:vis.params.precision}}{{unit}}</div>
 	    </div>
 	</div>
 </div>

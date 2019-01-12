@@ -12,11 +12,17 @@ module.controller('TrafficLightVisController', function ($scope, Private) {
 
     $scope.$watch('esResponse', function (resp) {
         if (resp) {
-            var columns = resp.tables[0].columns;
-            var rows = resp.tables[0].rows;
+            console.log(resp);
+            var columns = resp.columns;
+            var rows = resp.rows;
 
             var metrics = [];
             var lines = [];
+            $scope.unit='';
+            if ($scope.vis.params.unit!='')
+            {
+                $scope.unit=' '+$scope.vis.params.unit
+            }
 
             var i = 0;
             var lightsperline = $scope.vis.params.numberOfLights;
@@ -28,21 +34,23 @@ module.controller('TrafficLightVisController', function ($scope, Private) {
 
             for (var r in rows) {
                 var row = rows[r];
+                console.log(r);
+                console.log(row);
 
                 if (i % lightsperline == 0) {
                     metrics = [];
                     lines.push(metrics);
                 }
 
-                if (row.length == 1) {
+                if (rows.length == 1) {
                     metrics.push({
-                        "label": columns[0].title,
-                        "value": row[0]
+                        "label": "All",
+                        "value": row["col-0-1"]
                     })
                 } else {
                     metrics.push({
-                        "label": row[0],
-                        "value": row[1]
+                        "label": row["col-0-2"],
+                        "value": row["col-1-1"]
                     })
                 }
                 i++;

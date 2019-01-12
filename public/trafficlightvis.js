@@ -7,16 +7,17 @@ import './trafficlightviscontroller.js';
 import {CATEGORY} from 'ui/vis/vis_category';
 import {VisFactoryProvider} from 'ui/vis/vis_factory';
 import {VisTypesRegistryProvider} from 'ui/registry/vis_types';
-import {VisSchemasProvider} from 'ui/vis/editors/default/schemas';
+//import {VisSchemasProvider} from 'ui/vis/editors/default/schemas';
+import { Schemas } from 'ui/vis/editors/default/schemas';
 
 function TestVisProvider(Private) {
   const VisFactory = Private(VisFactoryProvider);
-  const Schemas = Private(VisSchemasProvider);
+//  const Schemas = Private(VisSchemasProvider);
 
   return VisFactory.createAngularVisualization({
     name: 'trafficlights',
-    title: 'Traffic Lights',
-    icon: 'fa fa-car',
+    title: 'Traffic Lights 2',
+    icon: 'visGauge',
     description: 'Great for one-glance status readings, the traffic light visualization expresses in green / yellow / red the position of a single value in relation to low and high thresholds.',
     category: CATEGORY.OTHER,
     //visualization: VisController,
@@ -28,7 +29,9 @@ function TestVisProvider(Private) {
         redThreshold: 20,
         greenThreshold: 80,
         invertScale: false,
-        numberOfLights: 10
+        numberOfLights: 5,
+        unit:'',
+        precision:2
       },
       template: mainTemplate
     },
