@@ -8,11 +8,11 @@ module.controller('TrafficLightVisController', function ($scope, Private) {
 
     $scope.percentperlight = 100;
 
-    console.log("PercentPerLight=" + $scope.percentperlight);
+//    console.log("PercentPerLight=" + $scope.percentperlight);
 
     $scope.$watch('esResponse', function (resp) {
         if (resp) {
-            console.log(resp);
+//            console.log(resp);
             var columns = resp.columns;
             var rows = resp.rows;
 
@@ -29,13 +29,13 @@ module.controller('TrafficLightVisController', function ($scope, Private) {
 
             if ($scope.vis.params.numberOfLights > 0) {
                 $scope.percentperlight = 100 / $scope.vis.params.numberOfLights;
-                console.log("Setting width traffic light width to:" + $scope.percentperlight);
+//                console.log("Setting width traffic light width to:" + $scope.percentperlight);
             }
 
             for (var r in rows) {
                 var row = rows[r];
-                console.log(r);
-                console.log(row);
+//                console.log(r);
+//                console.log(row);
 
                 if (i % lightsperline == 0) {
                     metrics = [];
