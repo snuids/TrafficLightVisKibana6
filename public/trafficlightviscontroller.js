@@ -44,7 +44,7 @@ module.controller('TrafficLightVisController', function ($scope, Private) {
 
                 if (rows.length == 1) {
                     metrics.push({
-                        "label": "All",
+                        "label": columns[0].name,
                         "value": row["col-0-1"]
                     })
                 } else {
