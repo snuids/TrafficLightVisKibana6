@@ -1,9 +1,16 @@
 # TrafficLightVisKibana6
 A traffic lights visualisation panel that can be split on multiple lines
 
+Check the 6.5 branch for the 6.5 version.
+
+# Known bug
+
+The visualization must be run at least once after a parameter change before saving it. Otherwise, the old options are saved. (Refresh is not enough)
+
 # Traffic Light Visualization
 
 ![Transform Vis](https://raw.githubusercontent.com/snuids/TrafficLightVisKibana6/master/pictures/TrafficLights6a.jpg)
+![Transform Vis](https://raw.githubusercontent.com/snuids/TrafficLightVisKibana6/master/pictures/TrafficLights6b.png)
 
 ## Versions
 Kibana 6.X version of http://logz.io/blog/kibana-visualizations/
