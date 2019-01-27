@@ -24,7 +24,8 @@ Kibana 4.4 version here https://github.com/snuids/traffic_light_vis
 
 ## Options
 * Split chart option added. 
-* Possibility to define the numer of traffic lights per line.
+* Possibility to define the number of traffic lights per line.
+* Plain mode added ofr Kibana version > 6.5
 
 ## Installation
 Simply unzip the content in the plugin folder of Kibana.
