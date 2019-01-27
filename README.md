@@ -10,7 +10,7 @@ The visualization must be run at least once after a parameter change before savi
 # Traffic Light Visualization
 
 ![Transform Vis](https://raw.githubusercontent.com/snuids/TrafficLightVisKibana6/master/pictures/TrafficLights6a.jpg)
-![Transform Vis](https://raw.githubusercontent.com/snuids/TrafficLightVisKibana6/master/pictures/TrafficLights6b.png)
+![Transform Vis](https://raw.githubusercontent.com/snuids/TrafficLightVisKibana6/master/pictures/TrafficLights6b.jpg)
 
 ## Versions
 Kibana 6.X version of http://logz.io/blog/kibana-visualizations/
