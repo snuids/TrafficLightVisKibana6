@@ -1,7 +1,5 @@
-<div class="form-group">
-  <label>Traffic light width - {{ vis.params.width }}px</label>
-  <input type="range" ng-model="vis.params.width" class="form-control" min="20" max="200"/>
-</div>
+<div>-= Data =-</div>
+<br/>
 <div class="form-group">
   <label>Red threshold <span ng-bind-template="({{!vis.params.invertScale ? 'below':'above'}} this value will be red)"></span></label>
   <input type="number" ng-model="vis.params.redThreshold" class="form-control"/>
@@ -23,12 +21,56 @@
   <input type="text" ng-model="vis.params.unit" class="form-control"/>
 </div>
 <div class="form-group">
-  <label>Traffic light per line {{ vis.params.numberOfLights }}</label>
-  <input type="range" ng-model="vis.params.numberOfLights" class="form-control" min="1" max="50"/>
-</div>
-<div class="form-group">
   <label>
     <input type="checkbox" ng-model="vis.params.invertScale">
     Invert scale
   </label>
 </div>
+<br/>
+<div>-= Display =-</div>
+<br/>
+<div class="form-group"></div>
+<select  class="form-control" ng-model="vis.params.displayMode" ng-options="display for display in vis.params.displayOptions">  
+</select>
+</div>
+{{vis.params.displayMode}}
+<div class="form-group">
+  <label>Font Size {{ vis.params.fontSize }}px</label>
+  <input type="range" ng-model="vis.params.fontSize" class="form-control" min="8" max="100"/>
+</div>
+<div class="form-group">
+    <label>Metric Font Size {{ vis.params.fontSizeMetric }}px</label>
+    <input type="range" ng-model="vis.params.fontSizeMetric" class="form-control" min="8" max="100"/>
+  </div>
+<div class="form-group" ng-show="vis.params.displayMode=='Traffic'">
+  <label>Traffic light width - {{ vis.params.width }}px</label>
+  <input type="range" ng-model="vis.params.width" class="form-control" min="20" max="200"/>
+</div>
+<div class="form-group">
+  <label>
+    <input type="checkbox" ng-model="vis.params.fixedSize">
+    Fixed Size
+  </label>
+</div>
+
+<div class="form-group" ng-show="!vis.params.fixedSize">
+  <label>Panels per line {{ vis.params.numberOfLights }}</label>
+  <input type="range" ng-model="vis.params.numberOfLights" class="form-control" min="1" max="50"/>
+</div>
+<div class="form-group" ng-show="vis.params.fixedSize">
+  <label>Panel Width - {{ vis.params.fixedw }}px</label>
+  <input type="range" ng-model="vis.params.fixedw" class="form-control" min="20" max="300"/>
+</div>
+<div class="form-group" ng-show="vis.params.fixedSize || vis.params.displayMode=='Plain'">
+  <label>Panel Height - {{ vis.params.fixedh }}px</label>
+  <input type="range" ng-model="vis.params.fixedh" class="form-control" min="20" max="300"/>
+</div>
+<div class="form-group" ng-show="vis.params.fixedSize || vis.params.displayMode=='Plain'">
+  <label>Panel Border - {{ vis.params.fixedb }}px</label>
+  <input type="range" ng-model="vis.params.fixedb" class="form-control" min="0" max="100"/>
+</div>
+<div class="form-group" ng-show="vis.params.fixedSize || vis.params.displayMode=='Plain'">
+  <label>Panel Radius - {{ vis.params.fixedr }}px</label>
+  <input type="range" ng-model="vis.params.fixedr" class="form-control" min="0" max="300"/>
+</div>
+<h2>v1.0</h2>

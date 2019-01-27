@@ -16,7 +16,7 @@ function TestVisProvider(Private) {
 
   return VisFactory.createAngularVisualization({
     name: 'trafficlights',
-    title: 'Traffic Lights 2',
+    title: 'Traffic Lights',
     icon: 'visGauge',
     description: 'Great for one-glance status readings, the traffic light visualization expresses in green / yellow / red the position of a single value in relation to low and high thresholds.',
     category: CATEGORY.OTHER,
@@ -29,9 +29,18 @@ function TestVisProvider(Private) {
         redThreshold: 20,
         greenThreshold: 80,
         invertScale: false,
+        fixedSize:false,
         numberOfLights: 5,
         unit:'',
-        precision:2
+        precision:2,
+        fixedb:20,
+        fixedw:200,
+        fixedh:200,
+        fixedr:0,
+        fontSize:12,
+        fontSizeMetric:20,
+        displayOptions:["Traffic","Plain"],
+        displayMode:"Traffic"
       },
       template: mainTemplate
     },

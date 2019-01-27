@@ -24,3 +24,6 @@ Simply unzip the content in the plugin folder of Kibana.
 
 More info on docker and kibana here: https://mannekentech.com/
 
+## Version
+27Jan2019   v1.0    Added a fixed size option. And a plain display option.
+

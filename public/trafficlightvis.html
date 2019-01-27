@@ -1,7 +1,8 @@
-<div ng-controller="TrafficLightVisController" class="traffic-light-vis">
-	<div class="traffic-light-vis" ng-repeat="line in lines">
-	    <div ng-repeat="metric in line" class="traffic-light-box" ng-style="{'width':percentperlight+'%'}">
-	        <div class="traffic-light-container" ng-style="{'width': vis.params.width+'px', 'height': (2.68 * vis.params.width)+'px' }">
+<div ng-controller="TrafficLightVisController" class="traffic-light-vis" ng-style="{'font-size':+vis.params.fontSize+'px'}">
+	<!-- NUMBER OF TRAFFIC PER LINES FIXED-->
+	<div ng-show="!vis.params.fixedSize"  class="traffic-light-vis" ng-repeat="line in lines">
+	    <div ng-repeat="metric in line" class="traffic-light-box" ng-style="computeStyle(metric)">
+	        <div ng-show="vis.params.displayMode=='Traffic'" class="traffic-light-container" ng-style="{'width': vis.params.width+'px', 'height': (2.68 * vis.params.width)+'px' }">
 	            <div class="traffic-light">
 	                <div class="light red" ng-class="{'on':
 						(!vis.params.invertScale && ((metric.value <= vis.params.redThreshold) || (metric.value > vis.params.max)))
@@ -13,7 +14,23 @@
 					|| (vis.params.invertScale && metric.value <= vis.params.greenThreshold) }"></div>
 	            </div>
 	        </div>
-	        <div class="traffic-light-legend">{{metric.label}}<br/>{{metric.value | number:vis.params.precision}}{{unit}}</div>
+	        <div class="traffic-light-legend" ng-style="computeStyleLegend(metric)">{{metric.label}}<div ng-style="{'font-size':vis.params.fontSizeMetric+'px'}">{{metric.value | number:vis.params.precision}}{{vis.params.unit}}</div></div>
 	    </div>
+	</div>
+	<!-- SIZE OF PANEL FIXED-->
+	<div ng-show="vis.params.fixedSize" ng-repeat="metric in records" ng-style="computeStyle(metric)">
+		<div ng-show="vis.params.displayMode=='Traffic'" class="traffic-light-container" ng-style="{'width': vis.params.width+'px', 'height': (2.68 * vis.params.width)+'px','border-radius':'20px' }">
+			<div class="traffic-light">
+				<div class="light red" ng-class="{'on':
+					(!vis.params.invertScale && ((metric.value <= vis.params.redThreshold) || (metric.value > vis.params.max)))
+					|| (vis.params.invertScale && metric.value >= vis.params.redThreshold) }">
+				</div>
+				<div class="light yellow" ng-class="{'on': (!vis.params.invertScale && metric.value > vis.params.redThreshold && metric.value < vis.params.greenThreshold) || (vis.params.invertScale && metric.value < vis.params.redThreshold && metric.value > vis.params.greenThreshold) }"></div>
+				<div class="light green" ng-class="{'on':
+				(!vis.params.invertScale && metric.value >= vis.params.greenThreshold && metric.value <= vis.params.max)
+				|| (vis.params.invertScale && metric.value <= vis.params.greenThreshold) }"></div>
+			</div>
+		</div>
+		<div class="traffic-light-legend" ng-style="computeStyleLegend(metric)">{{metric.label}}<div ng-style="{'font-size':vis.params.fontSizeMetric+'px'}">{{metric.value | number:vis.params.precision}}{{vis.params.unit}}</div></div>
 	</div>
 </div>
