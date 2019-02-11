@@ -24,6 +24,7 @@ function TestVisProvider(Private) {
 
     visConfig: {
       defaults: {
+        type: 'trafficlights',
         max: 1000000,
         width: 50,
         redThreshold: 20,
@@ -39,7 +40,7 @@ function TestVisProvider(Private) {
         fixedr:0,
         fontSize:12,
         fontSizeMetric:20,
-        displayOptions:["Traffic","Plain"],
+        displayOptions:["Traffic","Plain","Mood","Thumb"],
         displayMode:"Traffic"
       },
       template: mainTemplate

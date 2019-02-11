@@ -25,5 +25,6 @@ Simply unzip the content in the plugin folder of Kibana.
 More info on docker and kibana here: https://mannekentech.com/
 
 ## Version
-27Jan2019   v1.0    Added a fixed size option. And a plain display option.
+27Jan2019   v1.0    Added a fixed size option. Added a plain display option.
+11Feb2019   v1.1    Added a thumb and mood option
 

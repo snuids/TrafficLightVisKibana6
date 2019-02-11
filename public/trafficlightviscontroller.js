@@ -4,7 +4,7 @@ import {
 
 const module = uiModules.get('kibana/transform_vis', ['kibana']);
 
-module.controller('TrafficLightVisController', function ($scope, Private) {
+module.controller('TrafficLightVisController', function ($scope, Private,config) {
     $scope.lines = [];
     $scope.records = [];
     $scope.percentperlight = 100;
