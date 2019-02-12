@@ -56,7 +56,7 @@ module.controller('TrafficLightVisController', function ($scope, Private,config)
         if ($scope.vis.params.displayMode == 'Plain')
             res =
                 {
-
+                    "color":$scope.vis.params.labelColor,
                     "position": "relative",
                     "top": "50%",
                     "-webkit-transform": "translateY(-50%)",

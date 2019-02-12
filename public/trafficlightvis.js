@@ -31,6 +31,8 @@ function TestVisProvider(Private) {
         greenThreshold: 80,
         invertScale: false,
         fixedSize:false,
+        showLabel:true,
+        showValue:true,
         numberOfLights: 5,
         unit:'',
         precision:2,
@@ -40,6 +42,8 @@ function TestVisProvider(Private) {
         fixedr:0,
         fontSize:12,
         fontSizeMetric:20,
+        labelColor:'#000',
+        valueColor:'black',
         displayOptions:["Traffic","Plain","Mood","Thumb"],
         displayMode:"Traffic"
       },

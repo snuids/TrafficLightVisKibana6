@@ -27,4 +27,5 @@ More info on docker and kibana here: https://mannekentech.com/
 ## Version
 27Jan2019   v1.0    Added a fixed size option. Added a plain display option.
 11Feb2019   v1.1    Added a thumb and mood option
+12Feb2019   v1.2    Color options added
 
