@@ -1,10 +1,12 @@
 <div>-= Data =-</div>
 <div class="form-group">
-  <label>Red threshold <span ng-bind-template="({{!vis.params.invertScale ? 'below':'above'}} this value will be red)"></span></label>
+  <label>Red threshold <span
+      ng-bind-template="({{!vis.params.invertScale ? 'below':'above'}} this value will be red)"></span></label>
   <input type="number" ng-model="vis.params.redThreshold" class="form-control" />
 </div>
 <div class="form-group">
-  <label>Green threshold <span ng-bind-template="({{!vis.params.invertScale ? 'above':'below'}} this value will be green)"></span></label>
+  <label>Green threshold <span
+      ng-bind-template="({{!vis.params.invertScale ? 'above':'below'}} this value will be green)"></span></label>
   <input type="number" ng-model="vis.params.greenThreshold" class="form-control" />
 </div>
 <div class="form-group">
@@ -27,9 +29,16 @@
 </div>
 <div>-= Display =-</div>
 <div class="form-group"></div>
-<select class="form-control" ng-model="vis.params.displayMode" ng-options="display for display in vis.params.displayOptions">
+<select class="form-control" ng-model="vis.params.displayMode"
+  ng-options="display for display in vis.params.displayOptions">
 </select>
 </div>
+
+<select ng-show="vis.params.displayMode=='Icon'" class="form-control" ng-model="vis.params.iconMode"
+  ng-options="icon for icon in vis.params.iconOptions">
+</select>
+</div>
+
 <div class="form-group">
   <label>Font Size {{ vis.params.fontSize }}px</label>
   <input type="range" ng-model="vis.params.fontSize" class="form-control" min="8" max="100" />
@@ -38,7 +47,8 @@
   <label>Metric Font Size {{ vis.params.fontSizeMetric }}px</label>
   <input type="range" ng-model="vis.params.fontSizeMetric" class="form-control" min="8" max="100" />
 </div>
-<div class="form-group" ng-show="vis.params.displayMode=='Traffic' || vis.params.displayMode=='Mood' || vis.params.displayMode=='Thumb'">
+<div class="form-group"
+  ng-show="vis.params.displayMode=='Traffic' || vis.params.displayMode=='Mood' || vis.params.displayMode=='Thumb' || vis.params.displayMode=='Icon'">
   <label>Glyph width - {{ vis.params.width }}px</label>
   <input type="range" ng-model="vis.params.width" class="form-control" min="20" max="200" />
 </div>
@@ -62,32 +72,41 @@
 </div>
 
 <div class="form-group" ng-show="!vis.params.fixedSize">
-  <label>Panels per line {{ vis.params.numberOfLights }}</label>
+  <label>Max Panels per line {{ vis.params.numberOfLights }}</label>
   <input type="range" ng-model="vis.params.numberOfLights" class="form-control" min="1" max="50" />
 </div>
 <div class="form-group" ng-show="vis.params.fixedSize">
   <label>Panel Width - {{ vis.params.fixedw }}px</label>
   <input type="range" ng-model="vis.params.fixedw" class="form-control" min="20" max="300" />
 </div>
-<div class="form-group" ng-show="vis.params.fixedSize || vis.params.displayMode=='Plain'">
+<div class="form-group"
+  ng-show="vis.params.fixedSize || vis.params.displayMode=='Plain' || vis.params.displayMode=='Frame'">
   <label>Panel Height - {{ vis.params.fixedh }}px</label>
   <input type="range" ng-model="vis.params.fixedh" class="form-control" min="20" max="300" />
 </div>
-<div class="form-group" ng-show="vis.params.fixedSize || vis.params.displayMode=='Plain'">
+<div class="form-group"
+  ng-show="vis.params.fixedSize || vis.params.displayMode=='Plain' || vis.params.displayMode=='Frame'">
   <label>Panel Border - {{ vis.params.fixedb }}px</label>
   <input type="range" ng-model="vis.params.fixedb" class="form-control" min="0" max="100" />
 </div>
-<div class="form-group" ng-show="vis.params.fixedSize || vis.params.displayMode=='Plain'">
+<div class="form-group"
+  ng-show="vis.params.fixedSize || vis.params.displayMode=='Plain' || vis.params.displayMode=='Frame'">
   <label>Panel Radius - {{ vis.params.fixedr }}px</label>
   <input type="range" ng-model="vis.params.fixedr" class="form-control" min="0" max="300" />
 </div>
-<div class="form-group">
-  <label>Label Color</label>
-  <input type="text" ng-model="vis.params.labelColor" class="form-control" />
+<div class="form-group"
+  ng-show="vis.params.fixedSize || vis.params.displayMode=='Plain' || vis.params.displayMode=='Frame'">
+  <label>Margin - {{ vis.params.margin }}px</label>
+  <input type="range" ng-model="vis.params.margin" class="form-control" min="0" max="300" />
 </div>
-<div class="form-group">
-  <label>Value Color</label>
-  <input type="text" ng-model="vis.params.valueColor" class="form-control" />
+<div ng-show="vis.params.displayMode!='Frame'">
+  <div class="form-group">
+    <label>Label Color</label>
+    <input type="text" ng-model="vis.params.labelColor" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label>Value Color</label>
+    <input type="text" ng-model="vis.params.valueColor" class="form-control" />
+  </div>
 </div>
-
-<div>v1.2</div>
+<div>v1.3</div>

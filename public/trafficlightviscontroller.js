@@ -4,66 +4,105 @@ import {
 
 const module = uiModules.get('kibana/transform_vis', ['kibana']);
 
-module.controller('TrafficLightVisController', function ($scope, Private,config) {
+module.controller('TrafficLightVisController', function ($scope, Private, config) {
+
     $scope.lines = [];
     $scope.records = [];
     $scope.percentperlight = 100;
 
+    $scope.svgIcon = $scope.vis.params.svgPhone;
+
+
     $scope.computeStyle = function (metric) {
         var res = {}
+
+        if ($scope.vis.params.displayMode == 'Icon') {
+            //console.log($scope.vis.params.iconMode);
+            switch ($scope.vis.params.iconMode) {
+                case "Bag":
+                    $scope.svgIcon = $scope.vis.params.svgBag;
+                    break;
+                default:
+                    $scope.svgIcon = $scope.vis.params.svgPhone;
+                    break;
+            }
+        }
 
         if ($scope.vis.params.fixedSize) {
             res = {
                 'width': $scope.vis.params.fixedw + 'px'
                 , 'float': 'left'
-                , 'height': $scope.vis.params.fixedh + 'px', 'border': 'solid white ' + $scope.vis.params.fixedb + 'px'
+                , 'height': $scope.vis.params.fixedh + 'px'
+                , 'border': 'solid white ' + $scope.vis.params.fixedb + 'px'
             };
         }
         else {
             //res = { 'width': $scope.vis.params.width + 'px', 'height': (2.68 * $scope.vis.params.width) + 'px' }
             res = { 'width': $scope.percentperlight + '%' };
-            if ($scope.vis.params.displayMode == 'Plain')
-            {
-                res["height"]=$scope.vis.params.fixedh + 'px';
-                res["border"]='solid white ' + $scope.vis.params.fixedb + 'px';
-            }    
+            if ($scope.vis.params.displayMode == 'Plain') {
+                res["height"] = $scope.vis.params.fixedh + 'px';
+                res["border"] = 'solid white ' + $scope.vis.params.fixedb + 'px';
+            }
         }
-        if ($scope.vis.params.displayMode == 'Plain') {
-            if((!$scope.vis.params.invertScale && ((metric.value <= $scope.vis.params.redThreshold) || (metric.value > $scope.vis.params.max)))
-                        || ($scope.vis.params.invertScale && metric.value >= $scope.vis.params.redThreshold))
-            {
-                res["background-color"] = "red";                
+        if ($scope.vis.params.displayMode == 'Plain' || $scope.vis.params.displayMode == 'Frame') {
+            if ((!$scope.vis.params.invertScale && ((metric.value <= $scope.vis.params.redThreshold) || (metric.value > $scope.vis.params.max)))
+                || ($scope.vis.params.invertScale && metric.value >= $scope.vis.params.redThreshold)) {
+                if ($scope.vis.params.displayMode == 'Plain')
+                    res["background-color"] = "red";
+                else {
+                    res["border-color"] = "red";
+                    res["color"] = "red";
+                    $scope.overrideValueColor = "red";
+                }
             }
-            if((!$scope.vis.params.invertScale && metric.value > $scope.vis.params.redThreshold && metric.value < $scope.vis.params.greenThreshold) 
-                        || ($scope.vis.params.invertScale && metric.value < $scope.vis.params.redThreshold && metric.value > $scope.vis.params.greenThreshold) )
-            {
-                res["background-color"] = "orange";                
+            if ((!$scope.vis.params.invertScale && metric.value > $scope.vis.params.redThreshold && metric.value < $scope.vis.params.greenThreshold)
+                || ($scope.vis.params.invertScale && metric.value < $scope.vis.params.redThreshold && metric.value > $scope.vis.params.greenThreshold)) {
+                if ($scope.vis.params.displayMode == 'Plain')
+                    res["background-color"] = "orange";
+                else {
+                    res["border-color"] = "orange";
+                    res["color"] = "orange";
+                    $scope.overrideValueColor = "orange";
+                }
             }
-            if(
+            if (
                 (!$scope.vis.params.invertScale && metric.value >= $scope.vis.params.greenThreshold && metric.value <= $scope.vis.params.max)
-                || ($scope.vis.params.invertScale && metric.value <= $scope.vis.params.greenThreshold) )
-            {
-                res["background-color"] = "green";       
+                || ($scope.vis.params.invertScale && metric.value <= $scope.vis.params.greenThreshold)) {
+                if ($scope.vis.params.displayMode == 'Plain')
+                    res["background-color"] = "green";
+                else {
+                    res["border-color"] = "green";
+                    res["color"] = "green";
+                    $scope.overrideValueColor = "green";
+                }
+
             }
             res["border-radius"] = $scope.vis.params.fixedr + 'px';
         }
 
-
+        res["margin"] = $scope.vis.params.margin + 'px';;
         return res;
     }
     $scope.computeStyleLegend = function (record) {
         var res = {}
-        if ($scope.vis.params.displayMode == 'Plain')
+        if ($scope.vis.params.displayMode == 'Plain' || $scope.vis.params.displayMode == 'Frame')
             res =
                 {
-                    "color":$scope.vis.params.labelColor,
                     "position": "relative",
                     "top": "50%",
                     "-webkit-transform": "translateY(-50%)",
                     "-ms-transform": "translateY(-50%)",
                     "transform": "translateY(-50%)"
-        }
+                }
+        if ($scope.vis.params.displayMode != 'Frame')
+            res.color = $scope.vis.params.labelColor;
         return res;
+    }
+    $scope.getValueColor = function () {
+        if ($scope.vis.params.displayMode == 'Frame')
+            return $scope.overrideValueColor = "";
+        else
+            return $scope.vis.params.valueColor;
     }
 
     $scope.$watch('esResponse', function (resp) {
@@ -83,7 +122,7 @@ module.controller('TrafficLightVisController', function ($scope, Private,config)
             var lightsperline = $scope.vis.params.numberOfLights;
 
             if ($scope.vis.params.numberOfLights > 0) {
-                $scope.percentperlight = 100 / $scope.vis.params.numberOfLights;
+                $scope.percentperlight = 100 / Math.min($scope.vis.params.numberOfLights, rows.length);
             }
 
             for (var r in rows) {
