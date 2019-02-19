@@ -1,4 +1,7 @@
+<button class="euiButton euiButton--primary euiButton--fill" ng-click="vis.refreshComponent()" >Apply</button>
+
 <div>-= Data =-</div>
+<br/>
 <div class="form-group">
   <label>Red threshold <span
       ng-bind-template="({{!vis.params.invertScale ? 'below':'above'}} this value will be red)"></span></label>
@@ -27,6 +30,7 @@
     Invert scale
   </label>
 </div>
+<br/>
 <div>-= Display =-</div>
 <div class="form-group"></div>
 <select class="form-control" ng-model="vis.params.displayMode"
@@ -109,4 +113,21 @@
     <input type="text" ng-model="vis.params.valueColor" class="form-control" />
   </div>
 </div>
-<div>v1.3</div>
+<br/>
+<div ng-show="vis.params.displayMode=='Plain' || vis.params.displayMode=='Frame'">
+<div>-= Colors =-</div>
+  <div class="form-group">
+    <label>Red Color</label>
+    <input type="text" ng-model="vis.params.redColor" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label>Orange Color</label>
+    <input type="text" ng-model="vis.params.orangeColor" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label>Green Color</label>
+    <input type="text" ng-model="vis.params.greenColor" class="form-control" />
+  </div>
+</div>
+
+<div>v1.5</div>

@@ -1,6 +1,7 @@
 import {
     uiModules
 } from 'ui/modules';
+import { Scope } from 'babel-traverse';
 
 const module = uiModules.get('kibana/transform_vis', ['kibana']);
 
@@ -12,6 +13,11 @@ module.controller('TrafficLightVisController', function ($scope, Private, config
 
     $scope.svgIcon = $scope.vis.params.svgPhone;
 
+    $scope.vis.refreshComponent=function()
+    {
+        alert('toto 2');
+        $scope.vis.forceReload();
+    }
 
     $scope.computeStyle = function (metric) {
         var res = {}
@@ -48,32 +54,32 @@ module.controller('TrafficLightVisController', function ($scope, Private, config
             if ((!$scope.vis.params.invertScale && ((metric.value <= $scope.vis.params.redThreshold) || (metric.value > $scope.vis.params.max)))
                 || ($scope.vis.params.invertScale && metric.value >= $scope.vis.params.redThreshold)) {
                 if ($scope.vis.params.displayMode == 'Plain')
-                    res["background-color"] = "red";
+                    res["background-color"] = $scope.vis.params.redColor;
                 else {
-                    res["border-color"] = "red";
-                    res["color"] = "red";
-                    $scope.overrideValueColor = "red";
+                    res["border-color"] = $scope.vis.params.redColor;
+                    res["color"] = $scope.vis.params.redColor;
+                    $scope.overrideValueColor = $scope.vis.params.redColor;
                 }
             }
             if ((!$scope.vis.params.invertScale && metric.value > $scope.vis.params.redThreshold && metric.value < $scope.vis.params.greenThreshold)
                 || ($scope.vis.params.invertScale && metric.value < $scope.vis.params.redThreshold && metric.value > $scope.vis.params.greenThreshold)) {
                 if ($scope.vis.params.displayMode == 'Plain')
-                    res["background-color"] = "orange";
+                    res["background-color"] = $scope.vis.params.orangeColor;
                 else {
-                    res["border-color"] = "orange";
-                    res["color"] = "orange";
-                    $scope.overrideValueColor = "orange";
+                    res["border-color"] = $scope.vis.params.orangeColor;
+                    res["color"] = $scope.vis.params.orangeColor;
+                    $scope.overrideValueColor = $scope.vis.params.orangeColor;
                 }
             }
             if (
                 (!$scope.vis.params.invertScale && metric.value >= $scope.vis.params.greenThreshold && metric.value <= $scope.vis.params.max)
                 || ($scope.vis.params.invertScale && metric.value <= $scope.vis.params.greenThreshold)) {
                 if ($scope.vis.params.displayMode == 'Plain')
-                    res["background-color"] = "green";
+                    res["background-color"] = $scope.vis.params.greenColor;
                 else {
-                    res["border-color"] = "green";
-                    res["color"] = "green";
-                    $scope.overrideValueColor = "green";
+                    res["border-color"] = $scope.vis.params.greenColor;
+                    res["color"] = $scope.vis.params.greenColor;
+                    $scope.overrideValueColor = $scope.vis.params.greenColor;
                 }
 
             }
