@@ -15,7 +15,6 @@ module.controller('TrafficLightVisController', function ($scope, Private, config
 
     $scope.vis.refreshComponent=function()
     {
-        alert('toto 2');
         $scope.vis.forceReload();
     }
 
