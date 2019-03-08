@@ -4,7 +4,7 @@ import mainTemplate from './trafficlightvis.html';
 import optionsTemplate from './trafficlightvisparams.html';
 import './trafficlightviscontroller.js';
 
-import { CATEGORY } from 'ui/vis/vis_category';
+//import { CATEGORY } from 'ui/vis/vis_category';
 import { VisFactoryProvider } from 'ui/vis/vis_factory';
 import { VisTypesRegistryProvider } from 'ui/registry/vis_types';
 //import {VisSchemasProvider} from 'ui/vis/editors/default/schemas';
@@ -19,7 +19,7 @@ function TestVisProvider(Private) {
     title: 'Traffic Lights',
     icon: 'visGauge',
     description: 'Great for one-glance status readings, the traffic light visualization expresses in green / yellow / red the position of a single value in relation to low and high thresholds.',
-    category: CATEGORY.OTHER,
+//    category: CATEGORY.OTHER,
     //visualization: VisController,
 
     visConfig: {
