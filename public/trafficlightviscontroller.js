@@ -23,9 +23,17 @@ module.controller('TrafficLightVisController', function ($scope, Private, config
 
         if ($scope.vis.params.displayMode == 'Icon') {
             //console.log($scope.vis.params.iconMode);
+            $scope.svgViewBox= "0 0 512 512";
             switch ($scope.vis.params.iconMode) {
+                case "HeartBeat":
+                    $scope.svgIcon = $scope.vis.params.svgHeartBeat;
+                    break
                 case "Bag":
                     $scope.svgIcon = $scope.vis.params.svgBag;
+                    break;
+                case "HandShake":
+                    $scope.svgViewBox= "0 0 640 512";
+                    $scope.svgIcon = $scope.vis.params.svgHandShake;
                     break;
                 default:
                     $scope.svgIcon = $scope.vis.params.svgPhone;

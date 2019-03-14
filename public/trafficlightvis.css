@@ -49,6 +49,7 @@
 	text-align:center;
 }
 .traffic-light-vis .traffic-light-container {
+  overflow:hidden;
   margin: 0 auto;
 }
 .traffic-light-vis .traffic-light-container .traffic-light {
