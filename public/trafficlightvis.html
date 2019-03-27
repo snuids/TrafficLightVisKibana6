@@ -94,10 +94,10 @@
 			</div>
 
 			<!-- Icon -->
-			<div ng-show="vis.params.displayMode=='Icon' " class="traffic-light-container"
+			<div ng-show="vis.params.displayMode=='Icon' || vis.params.displayMode=='SVGIcon'" class="traffic-light-container"
 				ng-style="{'width': vis.params.width+'px', 'height': (vis.params.height)+'px'}">
 				<div>
-					<div style="color:red" ng-show="(!vis.params.invertScale && ((metric.value <= vis.params.redThreshold) || (metric.value > vis.params.max)))
+					<div ng-style="getRed()" ng-show="(!vis.params.invertScale && ((metric.value <= vis.params.redThreshold) || (metric.value > vis.params.max)))
 		|| (vis.params.invertScale && metric.value >= vis.params.redThreshold) ">
 
 						<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone-volume"
@@ -107,7 +107,7 @@
 							</path>
 						</svg>
 					</div>
-					<div style="color:orange"
+					<div ng-style="getOrange()"
 						ng-show="(!vis.params.invertScale && metric.value > vis.params.redThreshold && metric.value < vis.params.greenThreshold) || (vis.params.invertScale && metric.value < vis.params.redThreshold && metric.value > vis.params.greenThreshold)">
 						<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone-volume"
 							class="svg-inline--fa fa-phone-volume fa-w-12" role="img" xmlns="http://www.w3.org/2000/svg"
@@ -116,7 +116,7 @@
 							</path>
 						</svg>
 					</div>
-					<div style="color:green" ng-show='(!vis.params.invertScale && metric.value >= vis.params.greenThreshold && metric.value <= vis.params.max)
+					<div ng-style="getGreen()" ng-show='(!vis.params.invertScale && metric.value >= vis.params.greenThreshold && metric.value <= vis.params.max)
 	|| (vis.params.invertScale && metric.value <= vis.params.greenThreshold)'>
 
 						<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone-volume"
@@ -231,10 +231,10 @@
 		</div>
 
 		<!-- Icon -->
-		<div ng-show="vis.params.displayMode=='Icon' " class="traffic-light-container"
+		<div ng-show="vis.params.displayMode=='Icon' || vis.params.displayMode=='SVGIcon'" class="traffic-light-container"
 			ng-style="{'width': vis.params.width+'px', 'height': (vis.params.height)+'px'}">
 			<div>
-				<div style="color:red" ng-show="(!vis.params.invertScale && ((metric.value <= vis.params.redThreshold) || (metric.value > vis.params.max)))
+				<div ng-style="getRed()" ng-show="(!vis.params.invertScale && ((metric.value <= vis.params.redThreshold) || (metric.value > vis.params.max)))
 					|| (vis.params.invertScale && metric.value >= vis.params.redThreshold) ">
 
 					<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone-volume"
@@ -244,7 +244,7 @@
 						</path>
 					</svg>
 				</div>
-				<div style="color:orange"
+				<div ng-style="getOrange()"
 					ng-show="(!vis.params.invertScale && metric.value > vis.params.redThreshold && metric.value < vis.params.greenThreshold) || (vis.params.invertScale && metric.value < vis.params.redThreshold && metric.value > vis.params.greenThreshold)">
 					<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone-volume"
 						class="svg-inline--fa fa-phone-volume fa-w-12" role="img" xmlns="http://www.w3.org/2000/svg"
@@ -253,7 +253,7 @@
 						</path>
 					</svg>
 				</div>
-				<div style="color:green" ng-show='(!vis.params.invertScale && metric.value >= vis.params.greenThreshold && metric.value <= vis.params.max)
+				<div ng-style="getGreen()" ng-show='(!vis.params.invertScale && metric.value >= vis.params.greenThreshold && metric.value <= vis.params.max)
 				|| (vis.params.invertScale && metric.value <= vis.params.greenThreshold)'>
 
 					<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone-volume"

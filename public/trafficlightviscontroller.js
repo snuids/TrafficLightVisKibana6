@@ -18,6 +18,25 @@ module.controller('TrafficLightVisController', function ($scope, Private, config
         $scope.vis.forceReload();
     }
 
+    $scope.getGreen=function()
+    {
+        var res={};
+        res["color"] = $scope.vis.params.greenColor;
+        return res;
+    }
+    $scope.getOrange=function()
+    {
+        var res={};
+        res["color"] = $scope.vis.params.orangeColor;
+        return res;
+    }
+    $scope.getRed=function()
+    {
+        var res={};
+        res["color"] = $scope.vis.params.redColor;
+        return res;
+    }
+
     $scope.computeStyle = function (metric) {
         var res = {}
 
@@ -39,6 +58,11 @@ module.controller('TrafficLightVisController', function ($scope, Private, config
                     $scope.svgIcon = $scope.vis.params.svgPhone;
                     break;
             }
+        }
+        if ($scope.vis.params.displayMode == 'SVGIcon')
+        {
+            $scope.svgViewBox= $scope.vis.params.svgViewBox;
+            $scope.svgIcon = $scope.vis.params.svgFreeIcon;
         }
 
         if ($scope.vis.params.fixedSize) {

@@ -30,4 +30,5 @@ More info on docker and kibana here: https://mannekentech.com/
 12Feb2019   v1.2    Color options added
 14Feb2019   v1.3    Icon option added
 19Feb2019   v1.5    Plain and frame modes colos can be changed
+27Mar2019   v1.6    Icons color can be changed and a free svg mode has been added
 
