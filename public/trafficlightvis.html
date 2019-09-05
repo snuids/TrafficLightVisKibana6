@@ -1,5 +1,5 @@
 <div ng-controller="TrafficLightVisController" class="traffic-light-vis"
-	ng-style="{'font-size':+vis.params.fontSize+'px'}">
+	ng-style="{'font-size':+vis.params.fontSize+(vis.params.proportionalFonts?'vw':'px')}">
 	<!-- NUMBER OF TRAFFIC PER LINES FIXED-->
 	<div ng-show="!vis.params.fixedSize" class="traffic-light-vis" ng-repeat="line in lines">
 		<div ng-repeat="metric in line" class="traffic-light-box" ng-style="computeStyle(metric)">
@@ -133,7 +133,7 @@
 			<div class="traffic-light-legend" ng-style="computeStyleLegend(metric)"><span
 					ng-show="vis.params.showLabel">{{metric.label}}</span>
 				<div ng-show="vis.params.showValue"
-					ng-style="{'font-size':vis.params.fontSizeMetric+'px','color':getValueColor()}">
+					ng-style="{'font-size':vis.params.fontSizeMetric+(vis.params.proportionalFonts?'vw':'px'),'color':getValueColor()}">
 					{{metric.value | number:vis.params.precision}}{{vis.params.unit}}</div>
 			</div>
 		</div>
@@ -271,7 +271,7 @@
 		<div class="traffic-light-legend" ng-style="computeStyleLegend(metric)"><span
 				ng-show="vis.params.showLabel">{{metric.label}}</span>
 			<div ng-show="vis.params.showValue"
-				ng-style="{'font-size':vis.params.fontSizeMetric+'px','color':getValueColor()}">
+				ng-style="{'font-size':vis.params.fontSizeMetric+(vis.params.proportionalFonts?'vw':'px'),'color':getValueColor()}">
 				{{metric.value | number:vis.params.precision}}{{vis.params.unit}}</div>
 		</div>
 	</div>
