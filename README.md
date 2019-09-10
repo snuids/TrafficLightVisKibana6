@@ -33,3 +33,7 @@ Simply unzip the content in the plugin folder of Kibana.
 
 More info on docker and kibana here: https://mannekentech.com/
 
+## NYX Platform
+
+The plugin is included in the Kibana version used by the NYX platform.
+[NYX](https://github.com/snuids/nyx)
