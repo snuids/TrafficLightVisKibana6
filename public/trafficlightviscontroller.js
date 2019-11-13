@@ -1,7 +1,7 @@
 import {
     uiModules
 } from 'ui/modules';
-import { Scope } from 'babel-traverse';
+//import { Scope } from 'babel-traverse';
 
 const module = uiModules.get('kibana/transform_vis', ['kibana']);
 
