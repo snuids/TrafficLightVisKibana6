@@ -2,6 +2,7 @@
 A traffic lights visualisation panel that can be split on multiple lines
 
 Check the 6.5 branch for the 6.5 version.
+Check the 7.2 branch for the 7.2 version.
 
 # Known bug
 
