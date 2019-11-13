@@ -49,6 +49,7 @@
 	text-align:center;
 }
 .traffic-light-vis .traffic-light-container {
+  overflow:hidden;
   margin: 0 auto;
 }
 .traffic-light-vis .traffic-light-container .traffic-light {
@@ -74,3 +75,4 @@
 .traffic-light-vis .traffic-light-container .traffic-light .light.on.green {
   background-color: #5cb85c;
 }
+

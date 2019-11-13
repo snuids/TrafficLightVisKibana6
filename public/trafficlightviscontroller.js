@@ -3,13 +3,16 @@ import {
 } from 'ui/modules';
 //import { Scope } from 'babel-traverse';
 
+
 const module = uiModules.get('kibana/transform_vis', ['kibana']);
 
 module.controller('TrafficLightVisController', function ($scope, Private, config) {
 
+    $scope.columns=[]
     $scope.lines = [];
     $scope.records = [];
     $scope.percentperlight = 100;
+    $scope.metricsname = [];
 
     $scope.svgIcon = $scope.vis.params.svgPhone;
 
@@ -18,19 +21,51 @@ module.controller('TrafficLightVisController', function ($scope, Private, config
         $scope.vis.forceReload();
     }
 
+    $scope.getGreen=function()
+    {
+        var res={};
+        res["color"] = $scope.vis.params.greenColor;
+        return res;
+    }
+    $scope.getOrange=function()
+    {
+        var res={};
+        res["color"] = $scope.vis.params.orangeColor;
+        return res;
+    }
+    $scope.getRed=function()
+    {
+        var res={};
+        res["color"] = $scope.vis.params.redColor;
+        return res;
+    }
+
     $scope.computeStyle = function (metric) {
         var res = {}
 
         if ($scope.vis.params.displayMode == 'Icon') {
             //console.log($scope.vis.params.iconMode);
+            $scope.svgViewBox= "0 0 512 512";
             switch ($scope.vis.params.iconMode) {
+                case "HeartBeat":
+                    $scope.svgIcon = $scope.vis.params.svgHeartBeat;
+                    break
                 case "Bag":
                     $scope.svgIcon = $scope.vis.params.svgBag;
+                    break;
+                case "HandShake":
+                    $scope.svgViewBox= "0 0 640 512";
+                    $scope.svgIcon = $scope.vis.params.svgHandShake;
                     break;
                 default:
                     $scope.svgIcon = $scope.vis.params.svgPhone;
                     break;
             }
+        }
+        if ($scope.vis.params.displayMode == 'SVGIcon')
+        {
+            $scope.svgViewBox= $scope.vis.params.svgViewBox;
+            $scope.svgIcon = $scope.vis.params.svgFreeIcon;
         }
 
         if ($scope.vis.params.fixedSize) {
@@ -112,8 +147,16 @@ module.controller('TrafficLightVisController', function ($scope, Private, config
 
     $scope.$watch('esResponse', function (resp) {
         if (resp) {
+
             var columns = resp.columns;
             var rows = resp.rows;
+
+            $scope.columns=resp.columns;
+            $scope.metricsname=[];
+            for(var z=0;z<$scope.columns.length;z++)
+            {
+                $scope.metricsname.push($scope.columns[z].id);   
+            }
 
             var metrics = [];
             var lines = [];
@@ -137,24 +180,55 @@ module.controller('TrafficLightVisController', function ($scope, Private, config
                     metrics = [];
                     lines.push(metrics);
                 }
-
-                // Visualizations without series return col-0-1 with no label.
-                if (rows.length == 1 && "col-0-1" in row) {
-                    var rec = {
-                        "label": columns[0].name,
-                        "value": row["col-0-1"]
-                    };
-                    $scope.records.push(rec);
-                    metrics.push(rec);
-                } else {
+                if ($scope.vis.params.formula != undefined  && $scope.vis.params.formula != '')
+                {
+                    var lab="";
+                    if (rows.length == 1 && "col-0-1" in row)
+                        lab=columns[0].name;
+                    else
+                        lab=row[columns[0].id];
 
                     var rec = {
-                        "label": row["col-0-2"],
-                        "value": row["col-1-1"]
+                        "label": lab,
+                        "value": $scope.vis.params.formula
                     };
-                    $scope.records.push(rec);
-                    metrics.push(rec);
+                    var multi=rows.length == 1?0:1;
+                    for(var z=0;z<$scope.columns.length;z++)
+                    {                            
+                        rec["value"]=rec["value"].replace(new RegExp("metric_"+(z+1),"g"),row[$scope.metricsname[z+multi]]);
+                    }
+                
+                    try
+                    {
+                        rec["value"]=eval(rec["value"]);
+                    }
+                    catch(err)
+                    {
+                        console.log("Error while evaluating "+rec["value"]);
+                        console.log(err.message);
+                        rec["value"]=err.message;
+                    }
+                    //rec["value"]=123;
                 }
+                else
+                {
+                // Visualizations without series return col-0-1 with no label.
+                    if (rows.length == 1 && "col-0-1" in row) {
+                        var rec = {
+                            "label": columns[0].name,
+                            "value": row["col-0-1"]
+                        };
+                    } else {
+
+                        var rec = {
+                            "label": row["col-0-2"],
+                            "value": row["col-1-1"]
+                        };
+                    }
+                }
+                $scope.records.push(rec);
+                metrics.push(rec);
+
                 i++;
             }
 

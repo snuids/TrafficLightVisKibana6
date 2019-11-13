@@ -1,5 +1,5 @@
 <div ng-controller="TrafficLightVisController" class="traffic-light-vis"
-	ng-style="{'font-size':+vis.params.fontSize+'px'}">
+	ng-style="{'font-size':+vis.params.fontSize+(vis.params.proportionalFonts?'vw':'px')}">
 	<!-- NUMBER OF TRAFFIC PER LINES FIXED-->
 	<div ng-show="!vis.params.fixedSize" class="traffic-light-vis" ng-repeat="line in lines">
 		<div ng-repeat="metric in line" class="traffic-light-box" ng-style="computeStyle(metric)">
@@ -94,34 +94,34 @@
 			</div>
 
 			<!-- Icon -->
-			<div ng-show="vis.params.displayMode=='Icon' " class="traffic-light-container"
+			<div ng-show="vis.params.displayMode=='Icon' || vis.params.displayMode=='SVGIcon'" class="traffic-light-container"
 				ng-style="{'width': vis.params.width+'px', 'height': (vis.params.height)+'px'}">
 				<div>
-					<div style="color:red" ng-show="(!vis.params.invertScale && ((metric.value <= vis.params.redThreshold) || (metric.value > vis.params.max)))
+					<div ng-style="getRed()" ng-show="(!vis.params.invertScale && ((metric.value <= vis.params.redThreshold) || (metric.value > vis.params.max)))
 		|| (vis.params.invertScale && metric.value >= vis.params.redThreshold) ">
 
 						<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone-volume"
 							class="svg-inline--fa fa-phone-volume fa-w-12" role="img" xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 512 512">
+							ng-attr-view_box="{{svgViewBox}}">
 							<path fill="currentColor" ng-attr-d="{{svgIcon}}">
 							</path>
 						</svg>
 					</div>
-					<div style="color:orange"
+					<div ng-style="getOrange()"
 						ng-show="(!vis.params.invertScale && metric.value > vis.params.redThreshold && metric.value < vis.params.greenThreshold) || (vis.params.invertScale && metric.value < vis.params.redThreshold && metric.value > vis.params.greenThreshold)">
 						<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone-volume"
 							class="svg-inline--fa fa-phone-volume fa-w-12" role="img" xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 512 512">
+							ng-attr-view_box="{{svgViewBox}}">
 							<path fill="currentColor" ng-attr-d="{{svgIcon}}">
 							</path>
 						</svg>
 					</div>
-					<div style="color:green" ng-show='(!vis.params.invertScale && metric.value >= vis.params.greenThreshold && metric.value <= vis.params.max)
+					<div ng-style="getGreen()" ng-show='(!vis.params.invertScale && metric.value >= vis.params.greenThreshold && metric.value <= vis.params.max)
 	|| (vis.params.invertScale && metric.value <= vis.params.greenThreshold)'>
 
 						<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone-volume"
 							class="svg-inline--fa fa-phone-volume fa-w-12" role="img" xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 512 512">
+							ng-attr-view_box="{{svgViewBox}}">
 
 							<path fill="currentColor" ng-attr-d="{{svgIcon}}">
 							</path>
@@ -133,8 +133,8 @@
 			<div class="traffic-light-legend" ng-style="computeStyleLegend(metric)"><span
 					ng-show="vis.params.showLabel">{{metric.label}}</span>
 				<div ng-show="vis.params.showValue"
-					ng-style="{'font-size':vis.params.fontSizeMetric+'px','color':getValueColor()}">
-					{{metric.value | number:vis.params.precision}}{{vis.params.unit}}</div>
+					ng-style="{'font-size':vis.params.fontSizeMetric+(vis.params.proportionalFonts?'vw':'px'),'color':getValueColor()}">
+					{{metric.value | number:vis.params.precision}} {{vis.params.unit}}</div>
 			</div>
 		</div>
 	</div>
@@ -231,34 +231,34 @@
 		</div>
 
 		<!-- Icon -->
-		<div ng-show="vis.params.displayMode=='Icon' " class="traffic-light-container"
+		<div ng-show="vis.params.displayMode=='Icon' || vis.params.displayMode=='SVGIcon'" class="traffic-light-container"
 			ng-style="{'width': vis.params.width+'px', 'height': (vis.params.height)+'px'}">
 			<div>
-				<div style="color:red" ng-show="(!vis.params.invertScale && ((metric.value <= vis.params.redThreshold) || (metric.value > vis.params.max)))
+				<div ng-style="getRed()" ng-show="(!vis.params.invertScale && ((metric.value <= vis.params.redThreshold) || (metric.value > vis.params.max)))
 					|| (vis.params.invertScale && metric.value >= vis.params.redThreshold) ">
 
 					<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone-volume"
 						class="svg-inline--fa fa-phone-volume fa-w-12" role="img" xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 512 512">
+						ng-attr-view_box="{{svgViewBox}}">
 						<path fill="currentColor" ng-attr-d="{{svgIcon}}">
 						</path>
 					</svg>
 				</div>
-				<div style="color:orange"
+				<div ng-style="getOrange()"
 					ng-show="(!vis.params.invertScale && metric.value > vis.params.redThreshold && metric.value < vis.params.greenThreshold) || (vis.params.invertScale && metric.value < vis.params.redThreshold && metric.value > vis.params.greenThreshold)">
 					<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone-volume"
 						class="svg-inline--fa fa-phone-volume fa-w-12" role="img" xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 512 512">
+						ng-attr-view_box="{{svgViewBox}}">
 						<path fill="currentColor" ng-attr-d="{{svgIcon}}">
 						</path>
 					</svg>
 				</div>
-				<div style="color:green" ng-show='(!vis.params.invertScale && metric.value >= vis.params.greenThreshold && metric.value <= vis.params.max)
+				<div ng-style="getGreen()" ng-show='(!vis.params.invertScale && metric.value >= vis.params.greenThreshold && metric.value <= vis.params.max)
 				|| (vis.params.invertScale && metric.value <= vis.params.greenThreshold)'>
 
 					<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone-volume"
 						class="svg-inline--fa fa-phone-volume fa-w-12" role="img" xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 512 512">
+						ng-attr-view_box="{{svgViewBox}}">
 
 						<path fill="currentColor" ng-attr-d="{{svgIcon}}">
 						</path>
@@ -271,8 +271,8 @@
 		<div class="traffic-light-legend" ng-style="computeStyleLegend(metric)"><span
 				ng-show="vis.params.showLabel">{{metric.label}}</span>
 			<div ng-show="vis.params.showValue"
-				ng-style="{'font-size':vis.params.fontSizeMetric+'px','color':getValueColor()}">
-				{{metric.value | number:vis.params.precision}}{{vis.params.unit}}</div>
+				ng-style="{'font-size':vis.params.fontSizeMetric+(vis.params.proportionalFonts?'vw':'px'),'color':getValueColor()}">
+				{{metric.value | number:vis.params.precision}} {{vis.params.unit}}</div>
 		</div>
 	</div>
 </div>
