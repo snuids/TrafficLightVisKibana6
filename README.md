@@ -29,5 +29,5 @@ More info on docker and kibana here: https://mannekentech.com/
 11Feb2019   v1.1    Added a thumb and mood option
 12Feb2019   v1.2    Color options added
 14Feb2019   v1.3    Icon option added
-19Feb2019   v1.5    Plain and frame modes colos can be changed
+19Feb2019   v1.5    Plain and frame modes colors can be changed
 
