@@ -5,6 +5,7 @@ import optionsTemplate from './trafficlightvisparams.html';
 import  TrafficLightVisController from './trafficlightviscontroller'
 // Kibana Dependencies
 import {CATEGORY} from 'ui/vis/vis_category';
+import { npSetup } from 'ui/new_platform';
 import { setup as visualizations } from '../../../src/legacy/core_plugins/visualizations/public/np_ready/public/legacy';
 import { Schemas } from 'ui/vis/editors/default/schemas';
 import { AngularVisController } from 'ui/vis/vis_types/angular_vis_type';
