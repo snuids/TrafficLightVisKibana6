@@ -2,24 +2,21 @@ import './trafficlightvis.css';
 
 import mainTemplate from './trafficlightvis.html';
 import optionsTemplate from './trafficlightvisparams.html';
-import './trafficlightviscontroller.js';
-
+import  TrafficLightVisController from './trafficlightviscontroller'
+// Kibana Dependencies
 import {CATEGORY} from 'ui/vis/vis_category';
-import {VisFactoryProvider} from 'ui/vis/vis_factory';
-import {VisTypesRegistryProvider} from 'ui/registry/vis_types';
-import {VisSchemasProvider} from 'ui/vis/editors/default/schemas';
+import { npSetup } from 'ui/new_platform';
+import { setup as visualizations } from '../../../src/legacy/core_plugins/visualizations/public/np_ready/public/legacy';
+import { Schemas } from 'ui/vis/editors/default/schemas';
+import { AngularVisController } from 'ui/vis/vis_types/angular_vis_type';
 
-function TestVisProvider(Private) {
-  const VisFactory = Private(VisFactoryProvider);
-  const Schemas = Private(VisSchemasProvider);
-
-  return VisFactory.createAngularVisualization({
+  const trafficLightDefinition = {
     name: 'trafficlights',
     title: 'Traffic Lights',
     icon: 'fa fa-car',
     description: 'Great for one-glance status readings, the traffic light visualization expresses in green / yellow / red the position of a single value in relation to low and high thresholds.',
     category: CATEGORY.OTHER,
-    //visualization: VisController,
+    visualization: AngularVisController,
 
     visConfig: {
       defaults: {
@@ -53,6 +50,8 @@ function TestVisProvider(Private) {
         aggFilter: ['!geohash_grid', '!filter']
       }]),
     }
-  });
-}
-VisTypesRegistryProvider.register(TestVisProvider);
+  }
+
+npSetup.plugins.expressions.registerFunction(trafficLightDefinition);
+
+visualizations.types.createBaseVisualization(trafficLightDefinition);
